@@ -28,7 +28,7 @@ async function renderPokemonInfo(pokemonAsJson) {
     <div onclick="openStats(${pokemonAsJson.id})" class="pokeCard" id="pokeCard${pokemonAsJson.id}">
         <h2 id="pokemonName">${name}</h2>
         <span class="NrType"> # ${pokeNumber}</span> 
-        <img id="pokemonPicture" src="${pokemonPicture}">
+        <img class="pokemonpicture" id="pokemonPicture" src="${pokemonPicture}">
         <span class="NrType">${type}</span>
     </div>`;
     document.getElementById(`pokeCard${pokemonAsJson.id}`).style.backgroundColor = getColor(type);
@@ -60,12 +60,13 @@ function openStats(pokeId) {
     content.innerHTML = `
     <div class="pokemonStats" id="pokemonStatsChild1">
         <div class="pokemonStatsChild" id="pokemonStatsChild">
+
             <div class="Back" onclick="Back()"> &#129044 </div>
 
             <h2 id="pokemonName" style="margin: 0;">${pokemon['name']}</h2>
             <span class="NrType"># ${pokemon['id']}</span>
             <span class="NrType">${pokemon['types'][0]['type']['name']}</span>
-            <img id="pokemonPicture" src="${pokemon['sprites']['other']['official-artwork']['front_default']}">
+            <img class="pokemonpicture" id="pokemonPicture" src="${pokemon['sprites']['other']['official-artwork']['front_default']}">
         </div>
 
         <div class="stats">
@@ -120,11 +121,14 @@ function renderAbilities(pokemon) {
 
 function Back() {
     if (document.getElementById('pokemonStatsChild1')) {
+        
         var pokemonStatsChild1 = document.getElementById('pokemonStatsChild1');
-        pokemonStatsChild1.parentNode.removeChild(pokemonStatsChild1);
-        }
-    document.getElementById('pokemonStats').classList.add('d-none');
+        pokemonStatsChild1.parentNode.removeChild(pokemonStatsChild1); // Hier wird das Elternteil wieder zurück gegeben und das Kind gelöscht, in diesem Fall pokemonStatsChild1
+    }    
+    //document.getElementById('pokemonStats').classList.add('d-none');
     document.getElementById('pokemonCard').classList.remove('d-none');
+    document.getElementById('pokemonStats').classList.add('d-none');
+    
 }
 
 function getColor(type) {
