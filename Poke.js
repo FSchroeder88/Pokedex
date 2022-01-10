@@ -2,7 +2,7 @@ let maxPokemon = 152;
 let names = [];
 let currentPokemon = [];
 
-async function loadPokemon(i) {
+async function loadPokemon() {
     for (let i = 1; i < maxPokemon; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -32,6 +32,7 @@ async function renderPokemonInfo(pokemonAsJson) {
         <span class="NrType">${type}</span>
     </div>`;
     document.getElementById(`pokeCard${pokemonAsJson.id}`).style.backgroundColor = getColor(type);
+ 
 }
 
 function searchNames() {
@@ -52,9 +53,13 @@ function openStats(pokeId) {
     let statsType = pokemon['types'][0]['type']['name'];
     let content = document.getElementById('pokemonStats');
     let pokeDex = document.getElementById('pokemonCard');
-
+    let searchfield = document.getElementById('searchInput');
+    
     pokeDex.classList.add('d-none');
+    searchfield.classList.add('d-none')
     content.classList.remove('d-none');
+
+    
     content.innerHTML = '';
 
     content.innerHTML = `
@@ -128,8 +133,10 @@ function Back() {
     //document.getElementById('pokemonStats').classList.add('d-none');
     document.getElementById('pokemonCard').classList.remove('d-none');
     document.getElementById('pokemonStats').classList.add('d-none');
-    
+    document.getElementById('searchInput').classList.remove('d-none');
 }
+
+
 
 function getColor(type) {
     if (type == 'grass') {
